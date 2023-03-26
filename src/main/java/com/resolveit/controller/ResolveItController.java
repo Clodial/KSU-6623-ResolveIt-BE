@@ -23,7 +23,7 @@ public class ResolveItController {
 	
 	
 	@PostMapping(value = "/createaccount", produces ="application/json")
-	public ResponseEntity<String> createAccount(RequestBody loginInfo) throws Exception {
+	public ResponseEntity<String> createAccount(@RequestBody Login loginInfo) throws Exception {
 		
 	}
 	
