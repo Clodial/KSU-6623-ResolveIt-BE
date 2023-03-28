@@ -16,7 +16,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import com.resolveit.impl.ResolveItDAOImpl;
+import com.resolveit.impl.ResolveItMainImpl;
+import com.resolveit.service.ResolveItMain;
 
 
 public class AppConfig {
@@ -33,8 +34,8 @@ public class AppConfig {
 	public static class LocalConfiguration {
 		
 		@Bean
-		public ResolveItDAOImpl resolveItDao() {
-			return new ResolveItDAOImpl();
+		public ResolveItMain resolveItDao() {
+			return new ResolveItMainImpl();
 		}
 		
 		@SuppressWarnings("rawtypes")
