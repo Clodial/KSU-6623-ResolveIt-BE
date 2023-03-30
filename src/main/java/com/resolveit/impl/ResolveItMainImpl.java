@@ -4,13 +4,14 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.resolveit.dao.ResolveItDAO;
 import com.resolveit.resource.Login;
 import com.resolveit.service.ResolveItMain;
 
 public class ResolveItMainImpl implements ResolveItMain{
-
+	
 	@Autowired
-	private DataSource datasource;
+	ResolveItDAO dao;
 	
 	public ResolveItMainImpl() {}
 
@@ -20,16 +21,20 @@ public class ResolveItMainImpl implements ResolveItMain{
 	@Override
 	public String accountCreation(Login loginInfo) throws Exception {
 		// TODO Auto-generated method stub
-		
-		
-		return null;
+		try {
+			dao.createLoginAccount(loginInfo);
+			return "successful";
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Bad Login Credentials");
+		}
 	}
 
 	/**
 	 * 
 	 */
 	@Override
-	public Login checkLoginCredentials(String name, String password, String email) throws Exception {
+	public Login checkLoginCredentials(String name, String password) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

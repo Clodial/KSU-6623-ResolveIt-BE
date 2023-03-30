@@ -16,6 +16,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import com.resolveit.controller.ResolveItController;
+import com.resolveit.dao.ResolveItDAO;
 import com.resolveit.impl.ResolveItMainImpl;
 import com.resolveit.service.ResolveItMain;
 
@@ -34,8 +36,18 @@ public class AppConfig {
 	public static class LocalConfiguration {
 		
 		@Bean
-		public ResolveItMain resolveItDao() {
+		public ResolveItMain resolveItImpl() {
 			return new ResolveItMainImpl();
+		}
+		
+		@Bean
+		public ResolveItDAO resolveItDAO() {
+			return new ResolveItDAO(getDataSource());
+		}
+		
+		@Bean
+		public ResolveItController resolveItController() {
+			return new ResolveItController();
 		}
 		
 		@SuppressWarnings("rawtypes")
@@ -43,7 +55,7 @@ public class AppConfig {
 		public DataSource getDataSource() {
 	        DataSourceBuilder dbBuilder = DataSourceBuilder.create();
 	        dbBuilder.driverClassName("com.mysql.jdbc.Driver");
-	        dbBuilder.url("jdbc:mysql://dt3bgg3gu6nqye5f.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/cjas9oq17rppptrg");
+	        dbBuilder.url("jdbc:mysql://dt3bgg3gu6nqye5f.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/cjas9oq17rppptrg?characterEncoding=latin1");
 	        dbBuilder.username("rma8nhseno8qwsax");
 	        dbBuilder.password("lbbquumogkldsbvh");
 	        return dbBuilder.build();

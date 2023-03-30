@@ -13,7 +13,6 @@ public class Login implements Serializable {
 
 	private static final long serialVersionUID = -2870961836997172873L;
 	private String name;
-	private String email;
 	private String password;
 	private AccountType accountType;	
 	

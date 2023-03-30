@@ -1,5 +1,6 @@
 package com.resolveit.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,14 +14,13 @@ import com.resolveit.impl.ResolveItMainImpl;
 import com.resolveit.resource.Login;
 
 @RestController
-@RequestMapping("resolveit")
+@RequestMapping("/resolveit")
 public class ResolveItController {
 
-	private final ResolveItMainImpl resolveItImpl;
+	@Autowired
+	ResolveItMainImpl resolveItImpl;
 	
-	ResolveItController(ResolveItMainImpl resolveItImpl){
-		this.resolveItImpl = resolveItImpl;
-	}
+	public ResolveItController(){}
 	
 	
 	@PostMapping(value = "/createaccount", produces ="application/json")
@@ -29,8 +29,8 @@ public class ResolveItController {
 	}
 	
 	@GetMapping(value = "/login", produces = "application/json")
-	public ResponseEntity<Login> loginUser(@RequestParam String name, @RequestParam String password, @RequestParam String email) throws Exception {
-		return ResponseEntity.ok(resolveItImpl.checkLoginCredentials(name, password, email));
+	public ResponseEntity<Login> loginUser(@RequestParam String name, @RequestParam String password) throws Exception {
+		return ResponseEntity.ok(resolveItImpl.checkLoginCredentials(name, password));
 	}
 	
 }
