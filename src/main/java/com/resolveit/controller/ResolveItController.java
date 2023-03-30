@@ -24,13 +24,13 @@ public class ResolveItController {
 	
 	
 	@PostMapping(value = "/createaccount", produces ="application/json")
-	public ResponseEntity<String> createAccount(@RequestBody Login loginInfo) throws Exception {
+	public ResponseEntity<Login> createAccount(@RequestBody Login loginInfo) throws Exception {
 		return ResponseEntity.ok(resolveItImpl.accountCreation(loginInfo));
 	}
 	
-	@GetMapping(value = "/login", produces = "application/json")
-	public ResponseEntity<Login> loginUser(@RequestParam String name, @RequestParam String password) throws Exception {
-		return ResponseEntity.ok(resolveItImpl.checkLoginCredentials(name, password));
+	@PostMapping(value = "/login", produces = "application/json")
+	public ResponseEntity<Login> loginUser(@RequestBody Login loginInfo) throws Exception {
+		return ResponseEntity.ok(resolveItImpl.checkLoginCredentials(loginInfo.getName(), loginInfo.getPassword()));
 	}
 	
 }

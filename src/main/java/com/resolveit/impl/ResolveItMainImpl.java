@@ -19,14 +19,13 @@ public class ResolveItMainImpl implements ResolveItMain{
 	 * 
 	 */
 	@Override
-	public String accountCreation(Login loginInfo) throws Exception {
+	public Login accountCreation(Login loginInfo) throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			dao.createLoginAccount(loginInfo);
-			return "successful";
+			return dao.createLoginAccount(loginInfo);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Bad Login Credentials");
+			throw e;
 		}
 	}
 
@@ -36,7 +35,11 @@ public class ResolveItMainImpl implements ResolveItMain{
 	@Override
 	public Login checkLoginCredentials(String name, String password) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		try {
+			return dao.retrieveLoginAccount(name, password);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 	
 }
