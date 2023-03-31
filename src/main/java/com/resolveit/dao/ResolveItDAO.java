@@ -19,13 +19,11 @@ public class ResolveItDAO {
 		this.dataSource = dataSource;
 	}
 	
-	public Login createLoginAccount(Login loginInfo) throws SQLException {
-		Connection conn = null;
+	public void createLoginAccount(Login loginInfo) throws SQLException {
 		try {
 			int isBiz = loginInfo.getAccountType().equals(AccountType.SERVICE) ? 1 : 0;
 			String sql = "insert into UserInfo (name, password, business_acct) values (?, ?, ?)";
-			String returnSql = "SELECT user_ID, name, business_acct from UserInfo WHERE name=?";
-			conn = dataSource.getConnection();
+			Connection conn = dataSource.getConnection();
 				
 			PreparedStatement loginStmt = conn.prepareStatement(sql);
 			loginStmt.setString(1, loginInfo.getName());
@@ -33,20 +31,10 @@ public class ResolveItDAO {
 			loginStmt.setInt(3, isBiz);
 				
 			loginStmt.execute();
-			
-			PreparedStatement newUserStmt = conn.prepareStatement(returnSql);
-			newUserStmt.setString(1,  loginInfo.getName());
-			ResultSet newUser = newUserStmt.executeQuery();
-			newUser.next();
-			AccountType rspType = newUser.getInt(3) == 1 ? AccountType.SERVICE : AccountType.CUSTOMER;
-			String userId = newUser.getString(1);
-			String userName = newUser.getString(2);
-			
-			return new Login(userId, userName, null, rspType);
+			conn.close();
+			return;
 		} catch (SQLException e) {
 			throw e;
-		} finally {
-			conn.close();
 		}
 	}
 	

@@ -19,10 +19,11 @@ public class ResolveItMainImpl implements ResolveItMain{
 	 * 
 	 */
 	@Override
-	public Login accountCreation(Login loginInfo) throws Exception {
+	public String accountCreation(Login loginInfo) throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			return dao.createLoginAccount(loginInfo);
+			dao.createLoginAccount(loginInfo);
+			return "Account: " + loginInfo.getName() + ", Successfully Created";
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
